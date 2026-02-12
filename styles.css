@@ -372,12 +372,36 @@ body::before {
 }
 
 .result-content {
+  position: relative;
   max-width: 520px;
   width: 100%;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 0;
 }
 
-/* Phase 1: Huge congrats title only */
+/* Before 5s: headings vertically centered on screen; result-below out of flow so it takes no space */
+.result-below {
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+/* Centered headings block: h1 + h2 vertically centered until 5s */
+.result-headings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+/* Phase 1: Huge h1, normal-size h2; both centered */
 .congrats-title {
   font-family: var(--font-display);
   font-weight: 500;
@@ -387,6 +411,15 @@ body::before {
   letter-spacing: 0.02em;
   font-size: clamp(2.5rem, 10vw, 4.5rem);
   transition: font-size 0.8s cubic-bezier(0.22, 1, 0.36, 1), margin 0.8s ease;
+}
+
+.congrats-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin: 0.5rem 0 0;
+  line-height: 1.4;
 }
 
 /* Image + paragraph hidden until reveal */
@@ -401,13 +434,26 @@ body::before {
 }
 
 
-/* Phase 2: After 5s – smaller title + reveal image & paragraph */
+/* Phase 2: After 5s – content from top; smaller h1; reveal image & paragraph */
+.result-content.result-reveal {
+  justify-content: flex-start;
+  min-height: 0;
+  padding-top: 1rem;
+}
+
 .result-content.result-reveal .congrats-title {
   font-size: clamp(1.5rem, 4vw, 2.1rem);
+  margin-bottom: 0.25rem;
+}
+
+.result-content.result-reveal .result-headings {
   margin-bottom: 1.25rem;
 }
 
+/* After 5s: result-below back in flow and visible */
 .result-content.result-reveal .result-below {
+  position: static;
+  pointer-events: auto;
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
