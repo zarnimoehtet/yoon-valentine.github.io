@@ -1,0 +1,504 @@
+/* ===== Valentine's Day — Stylish theme ===== */
+:root {
+  --bg-deep: #0f080a;
+  --bg-card: rgba(45, 20, 30, 0.85);
+  --bg-card-hover: rgba(55, 25, 38, 0.9);
+  --accent: #d44d6e;
+  --accent-light: #e87a94;
+  --accent-glow: rgba(212, 77, 110, 0.4);
+  --gold: #d4af37;
+  --gold-soft: rgba(212, 175, 55, 0.5);
+  --text: #f8e8ec;
+  --text-muted: #b89ba6;
+  --heart-empty: rgba(120, 70, 85, 0.6);
+  --heart-filled: #d44d6e;
+  --correct: #2d6a3e;
+  --wrong: #8b2e3a;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Outfit', sans-serif;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 40px var(--accent-glow);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Subtle background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 100% 60% at 50% -10%, rgba(212, 77, 110, 0.12), transparent 50%),
+    radial-gradient(ellipse 80% 50% at 100% 80%, rgba(212, 175, 55, 0.06), transparent 45%),
+    radial-gradient(ellipse 60% 40% at 0% 70%, rgba(232, 122, 148, 0.08), transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-pattern {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(212, 77, 110, 0.06) 1px, transparent 0);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ----- Floating background hearts: like.svg & like-full.svg (animated) ----- */
+.floating-hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.floating-heart {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size, 18px);
+  height: var(--size, 18px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: floatHeart var(--dur, 8s) ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * -0.8s);
+  will-change: transform, opacity;
+}
+
+.floating-heart-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  opacity: 0.85;
+}
+
+.floating-heart .floating-heart-img {
+  filter: drop-shadow(0 0 8px rgba(212, 77, 110, 0.25));
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+  20% {
+    transform: translate(15px, -25px) scale(1.08);
+    opacity: 0.85;
+  }
+  40% {
+    transform: translate(-10px, -45px) scale(0.95);
+    opacity: 0.6;
+  }
+  60% {
+    transform: translate(20px, -35px) scale(1.05);
+    opacity: 0.9;
+  }
+  80% {
+    transform: translate(-5px, -15px) scale(0.98);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 100vh;
+  padding: 2.5rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 0.5s ease;
+}
+
+.hidden { display: none !important; }
+
+/* ----- Header ----- */
+.header {
+  text-align: center;
+  margin-bottom: 2.25rem;
+}
+
+.header-ornament {
+  display: block;
+  color: var(--gold-soft);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  margin: 0.25rem 0;
+}
+
+.header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 5vw, 2.75rem);
+  font-weight: 500;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  margin: 0.5rem 0 0;
+}
+
+/* ----- Progress hearts: horizontal row at top of questions ----- */
+.hearts-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-shrink: 0;
+}
+
+.heart-container {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.hearts-row .heart-container:nth-child(1) { transform: rotate(-15deg); }
+.hearts-row .heart-container:nth-child(2) { transform: rotate(0deg); }
+.hearts-row .heart-container:nth-child(3) { transform: rotate(15deg); }
+
+.heart {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease;
+}
+
+/* ----- Heart images: like.svg (empty) / like-full.svg (filled) ----- */
+.heart-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.35s ease, filter 0.3s ease, opacity 0.3s ease;
+}
+
+.heart-empty .heart-img {
+  opacity: 0.85;
+  filter: brightness(0.9);
+}
+
+.heart-filled .heart-img {
+  opacity: 1;
+  filter: drop-shadow(0 0 12px var(--accent-glow));
+}
+
+.heart-container .heart-filled {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.heart-container.filled .heart-empty {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.heart-container.filled .heart-filled {
+  opacity: 1;
+  transform: scale(1);
+  animation: heartPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes heartPop {
+  0% { transform: scale(0.4); opacity: 0; }
+  70% { transform: scale(1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ----- Flying heart (from correct answer to progress heart) ----- */
+.flying-heart-el {
+  position: fixed;
+  z-index: 1000;
+  width: 36px;
+  height: 36px;
+  margin-left: -18px;
+  margin-top: -18px;
+  pointer-events: none;
+  transition: left 0.65s cubic-bezier(0.34, 1.2, 0.64, 1), top 0.65s cubic-bezier(0.34, 1.2, 0.64, 1),
+    transform 0.65s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.2s ease;
+}
+
+.flying-heart-el .heart-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.flying-heart-el.landed {
+  opacity: 0;
+  transform: scale(0.3);
+}
+
+/* ----- Quiz cards ----- */
+.quiz {
+  width: 100%;
+  max-width: 520px;
+}
+
+.question-card {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 1.75rem 1.75rem 1.85rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(212, 77, 110, 0.18);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease;
+}
+
+.question-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.question-card.answered-correct {
+  opacity: 0.75;
+  pointer-events: none;
+  transform: none;
+}
+
+.card-number {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--gold-soft);
+  letter-spacing: 0.1em;
+}
+
+.question-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text);
+  margin: 0 0 1.25rem;
+  line-height: 1.4;
+  padding-right: 2.5rem;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.option {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 400;
+  padding: 0.7rem 1.2rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(212, 77, 110, 0.3);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.option:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(212, 77, 110, 0.2);
+}
+
+.option:active {
+  transform: translateY(0);
+}
+
+.option.correct {
+  background: var(--correct);
+  border-color: rgba(76, 175, 80, 0.6);
+  color: #e8f5e9;
+  box-shadow: 0 0 20px rgba(46, 125, 62, 0.3);
+}
+
+.option.wrong {
+  background: var(--wrong);
+  border-color: rgba(183, 28, 28, 0.5);
+  color: #ffebee;
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+/* ----- Result page ----- */
+.result-page {
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1.5rem;
+}
+
+.result-content {
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Phase 1: Huge congrats title only */
+.congrats-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--accent-light);
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  font-size: clamp(2.5rem, 10vw, 4.5rem);
+  transition: font-size 0.8s cubic-bezier(0.22, 1, 0.36, 1), margin 0.8s ease;
+}
+
+/* Image + paragraph hidden until reveal */
+.result-below {
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s,
+    visibility 0s linear 0.9s;
+}
+
+
+/* Phase 2: After 5s – smaller title + reveal image & paragraph */
+.result-content.result-reveal .congrats-title {
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  margin-bottom: 1.25rem;
+}
+
+.result-content.result-reveal .result-below {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 0s;
+}
+
+
+.congrats-badge {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  color: var(--accent-light);
+  background: rgba(212, 77, 110, 0.2);
+  border-radius: 50%;
+  border: 1px solid rgba(212, 77, 110, 0.4);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+}
+
+.result-image-wrap {
+  margin-bottom: 1.75rem;
+}
+
+.image-frame {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 2px solid rgba(212, 77, 110, 0.35);
+  box-shadow: var(--shadow), 0 0 0 1px rgba(212, 175, 55, 0.15);
+  padding: 8px;
+  background: linear-gradient(135deg, rgba(212, 77, 110, 0.1), rgba(212, 175, 55, 0.05));
+}
+
+.image-frame::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: calc(var(--radius) - 6px);
+  pointer-events: none;
+}
+
+.result-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--radius) - 10px);
+  vertical-align: middle;
+}
+
+.message-box {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 1.75rem 1.85rem;
+  border: 1px solid rgba(212, 77, 110, 0.2);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  text-align: left;
+}
+
+.valentine-message {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text);
+  margin: 0 0 1rem;
+}
+
+.valentine-message:last-child {
+  margin-bottom: 0;
+}
+
+.love-signature {
+  font-style: italic;
+  color: var(--accent-light);
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+@media (min-width: 480px) {
+  .hearts-row { gap: 2.5rem; }
+  .heart-container { width: 60px; height: 60px; }
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day ♥️</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <div class="bg-pattern" aria-hidden="true"></div>
+  <div class="floating-hearts" aria-hidden="true">
+    <span class="floating-heart" style="--i: 0; --x: 8%; --y: 15%; --dur: 8s; --size: 20px;"><img src="like.svg" alt="" class="floating-heart-img"></span>
+    <span class="floating-heart" style="--i: 1; --x: 88%; --y: 25%; --dur: 10s; --size: 16px;"><img src="like-full.svg" alt="" class="floating-heart-img"></span>
+    <span class="floating-heart" style="--i: 2; --x: 15%; --y: 70%; --dur: 9s; --size: 24px;"><img src="like.svg" alt="" class="floating-heart-img"></span>
+    <span class="floating-heart" style="--i: 3; --x: 92%; --y: 60%; --dur: 11s; --size: 14px;"><img src="like-full.svg" alt="" class="floating-heart-img"></span>
+    <span class="floating-heart" style="--i: 4; --x: 50%; --y: 12%; --dur: 7s; --size: 18px;"><img src="like-full.svg" alt="" class="floating-heart-img"></span>
+    <span class="floating-heart" style="--i: 5; --x: 72%; --y: 85%; --dur: 8.5s; --size: 22px;"><img src="like.svg" alt="" class="floating-heart-img"></span>
+    <span class="floating-heart" style="--i: 6; --x: 28%; --y: 40%; --dur: 9.5s; --size: 16px;"><img src="like-full.svg" alt="" class="floating-heart-img"></span>
+    <span class="floating-heart" style="--i: 7; --x: 65%; --y: 35%; --dur: 10.5s; --size: 20px;"><img src="like.svg" alt="" class="floating-heart-img"></span>
+  </div>
+
+  <div class="page quiz-page" id="quizPage">
+    <header class="header">
+      <span class="header-ornament">✦</span>
+      <h1>Valentine's Quiz</h1>
+      <p class="subtitle">Answer correctly to fill the hearts</p>
+      <span class="header-ornament">✦</span>
+    </header>
+
+    <div class="hearts-row" aria-label="Progress hearts">
+      <div class="heart-container" id="heart-0">
+        <div class="heart heart-empty">
+          <img src="like.svg" alt="" class="heart-img" width="48" height="48">
+        </div>
+        <div class="heart heart-filled" aria-hidden="true">
+          <img src="like-full.svg" alt="" class="heart-img" width="48" height="48">
+        </div>
+      </div>
+      <div class="heart-container" id="heart-1">
+        <div class="heart heart-empty">
+          <img src="like.svg" alt="" class="heart-img" width="48" height="48">
+        </div>
+        <div class="heart heart-filled" aria-hidden="true">
+          <img src="like-full.svg" alt="" class="heart-img" width="48" height="48">
+        </div>
+      </div>
+      <div class="heart-container" id="heart-2">
+        <div class="heart heart-empty">
+          <img src="like.svg" alt="" class="heart-img" width="48" height="48">
+        </div>
+        <div class="heart heart-filled" aria-hidden="true">
+          <img src="like-full.svg" alt="" class="heart-img" width="48" height="48">
+        </div>
+      </div>
+    </div>
+
+    <main class="quiz" role="main">
+      <article class="question-card" data-id="0">
+        <span class="card-number">01</span>
+        <h2>What's your lover's favorite color?</h2>
+        <div class="options">
+          <button type="button" class="option" data-value="red">Red</button>
+          <button type="button" class="option" data-value="blue">Blue</button>
+          <button type="button" class="option" data-value="green">Green</button>
+          <button type="button" class="option" data-value="pink">Pink</button>
+        </div>
+      </article>
+
+      <article class="question-card" data-id="1">
+        <span class="card-number">02</span>
+        <h2>In which month did you start dating?</h2>
+        <div class="options">
+          <button type="button" class="option" data-value="may">May</button>
+          <button type="button" class="option" data-value="june">June</button>
+          <button type="button" class="option" data-value="july">July</button>
+          <button type="button" class="option" data-value="august">August</button>
+        </div>
+      </article>
+
+      <article class="question-card" data-id="2">
+        <span class="card-number">03</span>
+        <h2>How tall is your lover?</h2>
+        <div class="options">
+          <button type="button" class="option" data-value="4feet">4 feet</button>
+          <button type="button" class="option" data-value="5feet">5 feet</button>
+          <button type="button" class="option" data-value="6feet">6 feet</button>
+          <button type="button" class="option" data-value="5.5feet">5.5 feet</button>
+        </div>
+      </article>
+    </main>
+  </div>
+
+  <div class="page result-page hidden" id="resultPage">
+    <div class="result-content" id="resultContent">
+      <h1 class="congrats-title">Congratulations My Babe Boo!</h1>
+      <div class="result-below" id="resultBelow">
+        <div class="congrats-badge">♥</div>
+        <div class="result-image-wrap">
+          <div class="image-frame">
+            <img src="test.jpg" alt="Valentine" class="result-image">
+          </div>
+        </div>
+        <div class="message-box">
+        <p class="valentine-message">
+          Happy Valentine's Day, My Babe Boo. This is our first Valentine's Day together as a couple. If I get the chance, I want to celebrate Valentine's Day holding your hand for many years to come.
+        </p>
+        <p class="valentine-message">
+          Do you know Bae, that you are truly my good luck charm? From you, I've received care, attention, and love that I've never experienced before. Sometimes, having a lover like you feels like a dream. I'm afraid of losing you, My Precious Babe. I want to watch the sunrise and sunset together with you, and grow old by your side.
+        </p>
+        <p class="valentine-message love-signature">
+          I love you so much, My Babe Boo. ♥
+        </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
